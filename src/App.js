@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
 import { Route } from "react-router-dom";
 
+//context
+import { WaterFallContext } from './contexts/WaterfallContext'
 function App() {
+  const { isLoggedIn } = useContext(WaterFallContext)
+  console.log(isLoggedIn)
   return (
     <div className="App">
       <h1>Hello</h1>

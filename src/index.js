@@ -6,9 +6,12 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import { WaterFallProvider } from './contexts/WaterfallContext'
 ReactDOM.render(
   <Router>
-    <App />
+    <WaterFallProvider>
+      <App />
+    </WaterFallProvider>
   </Router>,
   document.getElementById("root")
 );
