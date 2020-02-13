@@ -1,5 +1,6 @@
 import { config } from "./config.js";
 import * as Auth0 from "auth0-js";
+import axiosWithAuth from "./axiosWithAuth";
 
 class Auth {
   auth0 = new Auth0.WebAuth({
@@ -33,6 +34,7 @@ class Auth {
 
   localLogout() {
     localStorage.removeItem(this.authFlag);
+    localStorage.clear();
     this.userProfile = null;
     this.logoutCallback({ loggedIn: false });
   }
@@ -57,7 +59,16 @@ class Auth {
 
         localStorage.setItem("auth0", JSON.stringify(results));
 
-        // window.location.pathname = "/authenticate";
+        axiosWithAuth()
+          .post("http://localhost:4000/api/users/verify", results)
+          .then(res => {
+            console.log(res);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+
+        window.location.pathname = "/waterfalls";
       }
     });
   }

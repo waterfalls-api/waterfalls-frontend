@@ -4,21 +4,29 @@ import auth from "../auth/service.js";
 export const WaterFallContext = createContext();
 
 export const WaterFallProvider = props => {
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage.getItem("token") ? true : false
-  );
+  const [isLoggedIn, setIsLoggedIn] = useState(auth.isAuthenticated());
   const [waterFalls, setWaterFalls] = useState([]); // useState changed from {} to []
   const [user, setUser] = useState({ username: "", email: "", id: "" });
 
-  auth.loginCallback = loggedIn;
-  auth.logoutCallback = loggedOut;
+  auth.loginCallback = login;
+  auth.logoutCallback = logout;
 
-  function loggedIn() {
-    setIsLoggedIn(true);
+  function login() {
+    console.log("Logging in");
+    console.log("authStatus", auth.isAuthenticated());
+
+    if (auth.isAuthenticated()) {
+      setIsLoggedIn(true);
+    }
   }
 
-  function loggedOut() {
-    setIsLoggedIn(false);
+  function logout() {
+    console.log("Logging out");
+    console.log("authStatus", auth.isAuthenticated());
+
+    if (!auth.isAuthenticated()) {
+      setIsLoggedIn(false);
+    }
   }
 
   async function addUser() {
@@ -38,8 +46,8 @@ export const WaterFallProvider = props => {
         setWaterFalls,
         isLoggedIn,
         setIsLoggedIn,
-        loggedIn,
-        loggedOut,
+        login,
+        logout,
         user,
         setUser,
         addUser
