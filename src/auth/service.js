@@ -58,6 +58,7 @@ class Auth {
         };
 
         localStorage.setItem("auth0", JSON.stringify(results));
+        localStorage.setItem("token", this.accessToken);
 
         axiosWithAuth()
           .post("http://localhost:4000/api/users/verify", results)
