@@ -5,7 +5,7 @@ import axiosWithAuth from "../auth/axiosWithAuth";
 import { WaterFallContext } from "../contexts/WaterfallContext";
 
 import WaterfallsCard from "./WaterFallsCard.js";
-
+import WaterFallForm from "./WaterFallForm";
 function Waterfalls() {
   const { waterFalls, setWaterFalls } = useContext(WaterFallContext);
 
@@ -36,7 +36,7 @@ function Waterfalls() {
   return (
     <>
       <h2>Waterfalls List</h2>
-
+      <WaterFallForm />
       <p>A list of sweet waterfalls</p>
 
       {waterFalls.map(i => (
